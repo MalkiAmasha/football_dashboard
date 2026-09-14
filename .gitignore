@@ -1,0 +1,8 @@
+node_modules/
+_server.log
+*.log
+
+# Large build artifacts (exceed GitHub's 100MB file limit)
+*.tar
+*.tar.gz
+*.zip

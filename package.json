@@ -1,0 +1,11 @@
+{
+  "name": "football-score-table",
+  "version": "1.0.0",
+  "description": "Cricket-style scorecard view for football matches (Sofascore data)",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "dependencies": {
+    "express": "^4.19.2",
+    "playwright": "^1.48.0"
+  }
+}
