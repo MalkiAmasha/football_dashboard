@@ -1,24 +1,26 @@
 # Hosting Football Score Table with Docker
 
-Everything the app needs (Node, Express, headless Chromium) is inside the image.
-Nothing else has to be installed on the host except Docker.
+Everything the app needs (Node, Express, headless Chromium) is inside the image
+on Docker Hub: **[malkiamasha/football-score-table](https://hub.docker.com/r/malkiamasha/football-score-table)**.
+The host only needs Docker.
 
-## Option A — you were sent `football-score-table.tar` + `docker-compose.yml`
+## Start it
 
-Put both files in the same folder, then:
+With Docker Compose, from this repo's folder:
 
 ```bash
-docker load -i football-score-table.tar
 docker compose up -d
 ```
 
-Open <http://localhost:8080> (or `http://<server-ip>:8080` from another machine).
-
-## Option B — you have the source code
+Or with plain Docker, no repo needed:
 
 ```bash
-docker compose up -d --build
+docker run -d --name football-score-table --restart unless-stopped \
+  -p 8080:8080 --shm-size=1gb --init \
+  malkiamasha/football-score-table
 ```
+
+Open <http://localhost:8080>, or `http://<server-ip>:8080` from another machine.
 
 ## Managing it
 
@@ -26,7 +28,23 @@ docker compose up -d --build
 docker compose logs -f      # follow logs
 docker compose restart      # restart
 docker compose down         # stop and remove
+docker compose pull && docker compose up -d   # update to the newest image
 ```
+
+## Building the image from source
+
+```bash
+docker compose up -d --build
+```
+
+To publish a new version to Docker Hub (needs `docker login` as `malkiamasha`):
+
+```bash
+docker build -t malkiamasha/football-score-table .
+docker push malkiamasha/football-score-table
+```
+
+Only the `latest` tag is used, so a push replaces the previous image.
 
 ## Configuration
 
@@ -52,6 +70,12 @@ through a residential/mobile proxy — uncomment and fill in `SOFA_PROXY` in
     environment:
       PORT: "8080"
       SOFA_PROXY: "http://user:pass@host:port"
+```
+
+To test a proxy before using it:
+
+```bash
+docker compose exec football-score-table node scripts/check-ip.js http://user:pass@host:port
 ```
 
 ## Notes

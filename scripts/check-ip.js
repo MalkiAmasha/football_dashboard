@@ -2,11 +2,11 @@
  * Is this IP allowed to read Sofascore?
  *
  * Run it bare to test the connection you are on right now:
- *     node check-ip.js
+ *     node scripts/check-ip.js
  *
  * Run it with a proxy to test that proxy before wiring it into the server:
- *     node check-ip.js http://user:pass@host:port
- *     $env:SOFA_PROXY='http://host:port'; node check-ip.js
+ *     node scripts/check-ip.js http://user:pass@host:port
+ *     $env:SOFA_PROXY='http://host:port'; node scripts/check-ip.js
  *
  * Whatever it prints PASS for is what SOFA_PROXY should be set to (or, if you
  * ran it bare over a VPN, just start the server with that VPN connected).

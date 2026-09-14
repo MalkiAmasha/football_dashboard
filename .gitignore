@@ -1,6 +1,7 @@
 node_modules/
 _server.log
 *.log
+smoke-test.png
 
 # Large build artifacts (exceed GitHub's 100MB file limit)
 *.tar

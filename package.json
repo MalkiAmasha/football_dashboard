@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "Cricket-style scorecard view for football matches (Sofascore data)",
   "main": "server.js",
-  "scripts": { "start": "node server.js" },
+  "scripts": {
+    "start": "node server.js",
+    "start:espn": "node server.espn.js",
+    "check-ip": "node scripts/check-ip.js",
+    "smoke-test": "node scripts/smoke-test.js"
+  },
   "dependencies": {
     "express": "^4.19.2",
     "playwright": "^1.48.0"

@@ -1,4 +1,9 @@
-/** Smoke-check the UI: load the page, wait for the scorecard, report errors. */
+/**
+ * Smoke test for the UI. Start the server first, then:
+ *     node scripts/smoke-test.js
+ * Loads the page, waits for a scorecard, prints what rendered and any JS
+ * errors, and saves a screenshot (smoke-test.png, or set SHOT=path).
+ */
 const { chromium } = require('playwright');
 (async () => {
   const b = await chromium.launch();
@@ -19,6 +24,6 @@ const { chromium } = require('playwright');
   console.log('sample row   :', (await p.locator('table.sc tbody tr').first().innerText()).replace(/\n/g, ' '));
   console.log('bench label  :', await p.locator('.sub-sep').first().innerText());
   console.log('JS errors    :', errs.length ? errs : 'none');
-  await p.screenshot({ path: process.env.SHOT || '_smoke.png', fullPage: true });
+  await p.screenshot({ path: process.env.SHOT || 'smoke-test.png', fullPage: true });
   await b.close();
 })();

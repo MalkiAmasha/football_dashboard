@@ -27,17 +27,21 @@ Then open **http://localhost:8080**.
 
 `--shm-size=1gb` matters: Chromium crashes on Docker's default 64MB `/dev/shm`.
 
+For hosting on a server (running in the background, updating, proxies), see
+[DOCKER.md](DOCKER.md).
+
 ## Run it from source
 
 ```bash
 npm install
 npx playwright install chromium   # one-time, downloads the browser
 npm start
-cloudflared tunnel --url http://localhost:8080
-node check-ip.js
 ```
 
 Then open **http://localhost:8080**.
+
+To share your local copy over the internet temporarily, run
+`cloudflared tunnel --url http://localhost:8080` in a second terminal.
 
 - The list shows the most recent finished matches across **all leagues**, newest first.
 - Use the **League** dropdown to narrow to one competition (Champions League,
@@ -81,21 +85,29 @@ $env:SOFA_PROXY = 'http://user:pass@host:port'
 npm start
 ```
 
+To check whether your network or a proxy can reach Sofascore before starting:
+`npm run check-ip` (or `node scripts/check-ip.js http://user:pass@host:port`).
+
 Public relay services (allorigins, r.jina.ai, codetabs) do **not** work as a
 substitute — Sofascore blocks their datacenter addresses too. It has to be a
 residential or mobile address.
 
 `server.espn.js` is a standalone fallback backend built on ESPN's public API
-(no key, no bot challenge) — `node server.espn.js`. It serves the same routes,
+(no key, no bot challenge) — `npm run start:espn`. It serves the same routes,
 but ESPN publishes no player ratings and no passing/tackle/interception counts,
 so the scorecard columns in `public/index.html` need matching edits to show its
 stat set (Shots, Offside, Fouls, Conceded in place of Rating, Key Pass, Pass,
 Tackle Won, Intercept Won).
 
-## Files
+## Project structure
 
-- `server.js` — Express backend + Playwright Sofascore proxy.
-- `server.espn.js` — fallback backend using ESPN's public API.
-- `public/index.html` — the whole frontend (self-contained).
-- `_probe.js` — browser smoke test: loads the page, prints what rendered,
-  screenshots it (`SHOT=path node _probe.js`).
+```
+server.js              Main backend: Express + headless Chromium reading Sofascore
+server.espn.js         Fallback backend using ESPN (fewer stats, see above)
+public/index.html      The whole frontend, one self-contained file
+scripts/check-ip.js    Tests whether this network or a proxy can reach Sofascore
+scripts/smoke-test.js  Loads the running app in a browser and reports what rendered
+Dockerfile             Builds the Docker image
+docker-compose.yml     Runs the image (pulls malkiamasha/football-score-table)
+DOCKER.md              Hosting guide
+```

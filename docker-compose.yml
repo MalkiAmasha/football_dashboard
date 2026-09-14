@@ -1,8 +1,8 @@
 services:
   football-score-table:
-    image: football-score-table:1.0.0
-    # Only used if the image above isn't already present locally
-    # (i.e. you have the source and want to build it yourself).
+    image: malkiamasha/football-score-table
+    # Pulled from Docker Hub. To build from this source instead:
+    #   docker compose up -d --build
     build: .
     container_name: football-score-table
     restart: unless-stopped
