@@ -14,7 +14,20 @@ Stats come from **Sofascore**. Their API is behind Cloudflare bot protection, so
 the server keeps one warm headless-Chromium page parked on sofascore.com and runs
 every request from inside that page (which passes the challenge). No API key needed.
 
-## Run it
+## Run it with Docker (easiest)
+
+The image is published on Docker Hub — no source code, no npm install, no
+Chromium setup. Everything is baked in:
+
+```bash
+docker run -p 8080:8080 --shm-size=1gb --init malkiamasha/football-score-table:1.0.0
+```
+
+Then open **http://localhost:8080**.
+
+`--shm-size=1gb` matters: Chromium crashes on Docker's default 64MB `/dev/shm`.
+
+## Run it from source
 
 ```bash
 npm install

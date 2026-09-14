@@ -10,3 +10,4 @@ docker-compose.yml
 *.tar
 *.tar.gz
 football-score-table-docker
+*.zip
