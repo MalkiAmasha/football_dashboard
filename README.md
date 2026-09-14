@@ -20,7 +20,7 @@ The image is published on Docker Hub — no source code, no npm install, no
 Chromium setup. Everything is baked in:
 
 ```bash
-docker run -p 8080:8080 --shm-size=1gb --init malkiamasha/football-score-table:1.0.0
+docker run -p 8080:8080 --shm-size=1gb --init malkiamasha/football-score-table
 ```
 
 Then open **http://localhost:8080**.
