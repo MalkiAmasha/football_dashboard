@@ -14,6 +14,11 @@ Stats come from **Sofascore**. Their API is behind Cloudflare bot protection, so
 the server keeps one warm headless-Chromium page parked on sofascore.com and runs
 every request from inside that page (which passes the challenge). No API key needed.
 
+## Requirements
+
+- **To run with Docker:** Docker only (Docker Desktop on Windows/Mac). About 1 GB of free RAM.
+- **To run from source:** Node.js 18 or newer (the Docker image uses Node 22).
+
 ## Run it with Docker (easiest)
 
 The image is published on Docker Hub — no source code, no npm install, no
@@ -37,6 +42,9 @@ npm install
 npx playwright install chromium   # one-time, downloads the browser
 npm start
 ```
+
+On Linux, use `npx playwright install --with-deps chromium` instead, which also
+installs the system libraries Chromium needs.
 
 Then open **http://localhost:8080**.
 
@@ -86,7 +94,8 @@ npm start
 ```
 
 To check whether your network or a proxy can reach Sofascore before starting:
-`npm run check-ip` (or `node scripts/check-ip.js http://user:pass@host:port`).
+`npm run check-ip` for your own connection, or
+`npm run check-ip -- http://user:pass@host:port` to test a proxy.
 
 Public relay services (allorigins, r.jina.ai, codetabs) do **not** work as a
 substitute — Sofascore blocks their datacenter addresses too. It has to be a

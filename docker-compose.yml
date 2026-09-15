@@ -3,6 +3,7 @@ services:
     image: malkiamasha/football-score-table
     # Pulled from Docker Hub. To build from this source instead:
     #   docker compose up -d --build
+    pull_policy: missing
     build: .
     container_name: football-score-table
     restart: unless-stopped

@@ -72,10 +72,11 @@ through a residential/mobile proxy — uncomment and fill in `SOFA_PROXY` in
       SOFA_PROXY: "http://user:pass@host:port"
 ```
 
-To test a proxy before using it:
+To test a proxy before using it, from a copy of this repo (needs Node.js; run
+`npm install` first):
 
 ```bash
-docker compose exec football-score-table node scripts/check-ip.js http://user:pass@host:port
+npm run check-ip -- http://user:pass@host:port
 ```
 
 ## Notes
